@@ -20,6 +20,7 @@ class Box(db.Model):
     y_point = db.Column(db.Float, nullable=False)
     width = db.Column(db.Float, nullable=False)
     height = db.Column(db.Float, nullable=False)
+    # description = db.Column(db.String(255), nullable=False)
 
     image_id = db.Column(db.Integer, db.ForeignKey('images.id'), nullable=False)
 
@@ -27,8 +28,8 @@ class Box(db.Model):
 class Polygon(db.Model):
     __tablename__ = 'polygons'
     id = db.Column(db.Integer, primary_key=True)
-
     image_id = db.Column(db.Integer, db.ForeignKey('images.id'), nullable=False)
+    # description = db.Column(db.String(255), nullable=False)
 
     points = db.relationship('Point', backref='polygon', lazy=True)
 

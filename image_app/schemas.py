@@ -38,7 +38,7 @@ polygon_schema = PolygonSchema()
 polygons_schema = PolygonSchema(many=True)
 
 
-class ImageSchema(ms.SQLAlchemyAutoSchema):
+class ImageAnnotationsSchema(ms.SQLAlchemyAutoSchema):
     boxes = fields.Nested('BoxSchema', many=True)
     polygons = fields.Nested('PolygonSchema', many=True)
 
@@ -47,6 +47,16 @@ class ImageSchema(ms.SQLAlchemyAutoSchema):
         load_instance = True
         include_fk = True
         include_relationship = True
+
+image_annotations_schema = ImageAnnotationsSchema()
+images_annotations_schema = ImageAnnotationsSchema(many=True)
+
+
+class ImageSchema(ms.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Image
+        load_instance = True
+        include_fk = True
 
 image_schema = ImageSchema()
 images_schema = ImageSchema(many=True)
