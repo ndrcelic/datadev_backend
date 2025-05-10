@@ -19,13 +19,9 @@ class ImageResource(Resource):
         upload_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
         file.save(upload_path)
 
-        #parser = reqparse.RequestParser()
-        #parser.add_argument("url", type=str, required=True, help="URL is required")
-        #parser.add_argument("annotation", type=str, required=False)
+        extension = os.path.splitext(filename)[1]
 
-        #data = parser.parse_args()
-
-        new_image = Image(url=upload_path, annotation="annotation")
+        new_image = Image(url=upload_path, extension=extension)
         db.session.add(new_image)
         db.session.commit()
 
