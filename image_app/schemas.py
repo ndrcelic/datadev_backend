@@ -1,6 +1,8 @@
 from flask_marshmallow import Marshmallow
 from .models import Image, Box, Polygon, Point
 from marshmallow import fields, validate
+import os
+import base64
 
 ms = Marshmallow()
 
@@ -53,10 +55,21 @@ images_annotations_schema = ImageAnnotationsSchema(many=True)
 
 
 class ImageSchema(ms.SQLAlchemyAutoSchema):
+    row_image = fields.Method("get_row_image")
+
     class Meta:
         model = Image
         load_instance = True
         include_fk = True
+
+    def get_row_image(self, obj):
+        image_path = os.path.join('uploads', obj.url)
+        if os.path.isfile(image_path):
+            with open(image_path, 'rb') as image_file:
+                encoded = base64.b64encode(image_file.read()).decode('utf-8')
+                mime = "image/jpeg" if image_path.endswith('.jpg') else "image/png"
+                return f"data:{mime};base64,{encoded}"
+        return None
 
 image_schema = ImageSchema()
 images_schema = ImageSchema(many=True)

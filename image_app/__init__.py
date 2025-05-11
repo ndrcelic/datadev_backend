@@ -5,11 +5,14 @@ from flask_migrate import Migrate
 import os
 from .models import db
 from .schemas import ms
+from flask_cors import CORS
 
 #api = Api()
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
+    #CORS(app, resources={r"/images*": {"origins": "http://localhost:3000/images"}})
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:nikola@localhost:5432/datadev_db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

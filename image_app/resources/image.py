@@ -7,7 +7,6 @@ import os, json
 
 class ImageResource(Resource):
     def post(self):
-        print(request.files)
         if "file" not in request.files:
             return {"error" : "File is missing"}, 400
 
@@ -25,6 +24,7 @@ class ImageResource(Resource):
         db.session.add(new_image)
         db.session.commit()
 
+        print(new_image.id)
         return new_image.id, 201
 
     def get(self):
