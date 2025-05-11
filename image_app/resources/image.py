@@ -51,7 +51,7 @@ class ImageAnnotationResource(Resource):
                 abort(400, description="Some of values is/are missing'")
 
 
-            if x_point < 0 or y_point < 0 or width < 0:
+            if x_point < 0 or y_point < 0:
                 abort(400, description="Some of values is/are more then 0.")
 
             box = Box.query.filter(Box.image_id==image_id, Box.x_point==x_point, Box.y_point==y_point, Box.width==width, Box.height==height).first()

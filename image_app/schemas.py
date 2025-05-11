@@ -1,6 +1,7 @@
 from flask_marshmallow import Marshmallow
 from .models import Image, Box, Polygon, Point
 from marshmallow import fields, validate
+from flask import current_app
 import os
 import base64
 
@@ -63,7 +64,7 @@ class ImageSchema(ms.SQLAlchemyAutoSchema):
         include_fk = True
 
     def get_row_image(self, obj):
-        image_path = os.path.join('uploads', obj.url)
+        image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], obj.url)
         if os.path.isfile(image_path):
             with open(image_path, 'rb') as image_file:
                 encoded = base64.b64encode(image_file.read()).decode('utf-8')
