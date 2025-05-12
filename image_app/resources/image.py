@@ -46,6 +46,7 @@ class ImageAnnotationResource(Resource):
             y_point = data.get('y')
             width = data.get('w')
             height = data.get('h')
+            description = data.get('description')
 
             if x_point is None or y_point is None or width is None or height is None:
                 abort(400, description="Some of values is/are missing'")
@@ -54,17 +55,22 @@ class ImageAnnotationResource(Resource):
             if x_point < 0 or y_point < 0:
                 abort(400, description="Some of values is/are more then 0.")
 
-            box = Box.query.filter(Box.image_id==image_id, Box.x_point==x_point, Box.y_point==y_point, Box.width==width, Box.height==height).first()
+            description = "" if description is None else description
+
+            box = Box.query.filter(Box.image_id==image_id, Box.x_point==x_point, Box.y_point==y_point,
+                                   Box.width==width, Box.height==height).first()
             if box is not None:
                 return {"error": "Box with that dimensions and points already exists!"}, 404
 
-            box = Box(x_point=x_point, y_point=y_point, width=width, height=height, image_id=image_id)
+            box = Box(x_point=x_point, y_point=y_point, width=width, height=height, image_id=image_id, description=description)
             db.session.add(box)
             db.session.commit()
 
             return {"message": "Box", "x": x_point, "y": y_point, "width": width, "height": height}, 200
         elif shape_type == 'polygon':
             points = data.get('points')
+            description = data.get('description')
+
             if points is None or len(points) == 0:
                 abort(400, description="Points is missing")
 
@@ -85,7 +91,10 @@ class ImageAnnotationResource(Resource):
             if len(existence_list) == len(points) and False not in existence_list:
                 return {"error": "Polygon with that dimensions and points already exists!"}, 404
 
-            polygon = Polygon(image_id=image_id)
+            description = "" if description is None else description
+
+            polygon = Polygon(image_id=image_id, description=description)
+            db.session.add(polygon)
             db.session.add(polygon)
             db.session.commit()
 
