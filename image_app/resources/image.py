@@ -3,6 +3,7 @@ from image_app.models import Image, Box, Polygon, Point, db
 from image_app.schemas import images_schema,image_annotations_schema, ms
 from flask import request, current_app, abort, Response
 from werkzeug.utils import secure_filename
+from image_app.services import calculate_coordinates
 import os, json
 
 class ImageResource(Resource):
@@ -17,6 +18,7 @@ class ImageResource(Resource):
         filename = secure_filename(file.filename)
         upload_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
         file.save(upload_path)
+        print(upload_path)
 
         extension = os.path.splitext(filename)[1]
 
@@ -24,7 +26,6 @@ class ImageResource(Resource):
         db.session.add(new_image)
         db.session.commit()
 
-        print(new_image.id)
         return new_image.id, 201
 
     def get(self):
@@ -33,7 +34,6 @@ class ImageResource(Resource):
 
 
 class ImageAnnotationResource(Resource):
-    # proveriti sa verzijom ispod
     def post(self, image_id):
         data = request.get_json()
 
@@ -56,6 +56,9 @@ class ImageAnnotationResource(Resource):
                 abort(400, description="Some of values is/are more then 0.")
 
             description = "" if description is None else description
+
+            if width < 0 or height < 0:
+                x_point, y_point, width, height = calculate_coordinates(x_point, y_point, width, height)
 
             box = Box.query.filter(Box.image_id==image_id, Box.x_point==x_point, Box.y_point==y_point,
                                    Box.width==width, Box.height==height).first()

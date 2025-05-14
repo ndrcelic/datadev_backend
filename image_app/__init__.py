@@ -13,7 +13,6 @@ from config import config_by_name
 def create_app(config_name):
     app = Flask(__name__)
     CORS(app)
-    #CORS(app, resources={r"/images*": {"origins": "http://localhost:3000/images"}})
 
     app.config.from_object(config_by_name[config_name])
 
