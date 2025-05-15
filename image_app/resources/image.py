@@ -148,12 +148,15 @@ class DownloadAnnotationsResource(Resource):
             return {"error" : "Image not found"}, 404
 
         serialized_data = image_annotations_schema.dump(annotations)
-        # coco = from_json_to_coco(serialized_data)
+        coco = from_json_to_coco(serialized_data)
 
-        json_data = json.dumps(serialized_data, indent=4)
+        json_data = {
+            "coco": coco,
+            "simple_json": serialized_data,
+        }
 
-        # json_data = {**serialized_data, **coco}
-        response = Response(json_data, mimetype='application/json')
+        json_output = json.dumps(json_data, indent=4)
+        response = Response(json_output, mimetype='application/json')
         response.headers['Content-Disposition'] = f'attachment; filename="image_{image_id}_annotations.json"'
 
         return response
