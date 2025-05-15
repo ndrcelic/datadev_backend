@@ -12,7 +12,7 @@ class BoxSchema(ms.SQLAlchemyAutoSchema):
     class Meta:
         model = Box
         load_instance = True
-        # include_fk = True
+        include_fk = True
 
 box_schema = BoxSchema()
 boxes_schema = BoxSchema(many=True)
@@ -22,7 +22,7 @@ class PointSchema(ms.SQLAlchemyAutoSchema):
     class Meta:
         model = Point
         load_instance = True
-        # include_fk = True
+        include_fk = True
 
 point_schema = PointSchema()
 points_schema = PointSchema(many=True)
@@ -34,7 +34,7 @@ class PolygonSchema(ms.SQLAlchemyAutoSchema):
     class Meta:
         model = Polygon
         load_instance = True
-        # include_fk = True
+        include_fk = True
         include_relationship = True
 
 polygon_schema = PolygonSchema()
