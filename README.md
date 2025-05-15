@@ -27,16 +27,16 @@ React JS is used as frontend framework.
 
 How to test APP:
 
-    1. Import the picture(s). After that you can see list of pictures on the right side of window.
+    1. Import the picture(s). After that, you will see a list of pictures on the right side of the window.
 
-    2. On the left side, you can see the canvas. Once, when you choose a picture, this picture will be on the canvas.
+    2. On the left side, you can see the canvas. Once you selected a picture, it will appear on the cnavas.
 
-    3. Above the canvas are 2 buttons (Draw Box and Draw Polygon).
+    3. Above the canvas there are two buttons (Draw Box and Draw Polygon).
 
     4. Depending on your selection, you can either draw a box by dragging the mouse or create a polygon by adding points.
         Once you have added enough points, clicking the "Finished and View polygon", the edges will be drawn.
 
-    5. Also, there are Undo and Redo option (for box, drawn polygon and points).
+    5. AThere are also Undo and Redo options (for box, drawn polygon and points).
 
     6. The image cannot be changed while drawing. It can only be modified after saving the shapes ("Save shapes" button) or
        clearing everything ("Clear All" button).
