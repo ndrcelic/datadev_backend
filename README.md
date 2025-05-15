@@ -6,13 +6,13 @@ Steps to start a backend are bellow:
 
     ******* BACKEND *******
     1. Open in terminal a root path of application (../datadev_backend)
-    2. Type in terminal this: docker compose up -d --build
-    3. Run a migrations: docker compose exec web flask --app run db upgrade
-    4. Start a tests: docker compose exec web python -m unittest discover image_app
+    2. Type in terminal this: **docker compose up -d --build**
+    3. Run a migrations: **docker compose exec web flask --app run db upgrade**
+    4. Start a tests: **docker compose exec web python -m unittest discover image_app**
 
     ******* FRONTEND *******
     1. Open in terminal a root path of application (../datadev_frontend)
-    2. Type in terminal this: docker compose up -d --build
+    2. Type in terminal this: **docker compose up -d --build**
     3. A page will be opend in the browser (http://localhos:3000)
 
 
@@ -22,6 +22,7 @@ Flask framework is used for backend part of application.
     ORM      - SQLAlchemy
 
 React JS is used as frontend framework.
+    Bootstrap is used for UI.
 
 
 How to test APP:
