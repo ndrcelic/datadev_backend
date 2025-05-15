@@ -41,7 +41,6 @@ class ImageAnnotationResource(Resource):
 
         for shape in data:
             shape_type = shape['type']
-            print(shape_type)
             if not shape_type:
                 abort(400, description="Type is required")
 
@@ -122,7 +121,7 @@ class ImageAnnotationResource(Resource):
             else:
                 abort(400, description=f"Type '{shape_type}' is not supported.")
 
-        return 200
+        return {"message": "Annotations successfully created!"}, 201
 
 
     def get(self, image_id):

@@ -17,7 +17,12 @@ class DockerConfig(Config):
     SQLALCHEMY_DATABASE_URI = "postgresql://postgres:nikola@db:5432/dd_database"
     UPLOAD_FOLDER = '/app/uploads'
 
+class TestConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+
 config_by_name = {
     'development': DevelopmentConfig,
     'docker': DockerConfig,
+    'testing': TestConfig,
 }

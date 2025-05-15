@@ -16,9 +16,6 @@ def create_app(config_name):
 
     app.config.from_object(config_by_name[config_name])
 
-    #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:nikola@localhost:5432/datadev_db'
-    #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    # app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), "uploads")
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
     db.init_app(app)
